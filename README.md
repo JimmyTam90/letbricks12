@@ -24,6 +24,10 @@ npm run start
 - `docs/MASTER_PROMPT_V4.3.md` — master prompt with the redirect-routing (13.5) and keyword-slug (13.6) locks added.
 - `public/logo.png`, `public/favicon.ico`, `public/apple-touch-icon.png` — served at `/letbricks/...`. Copies of the logo and favicon also sit in `public/letbricks/` because `BRAND_LOGO_PATH` and `FAVICON_PUBLIC_PATH` name that folder; components reference only `/letbricks/logo.png` and `/letbricks/favicon.ico`.
 
+## Deploy note
+
+Commit the whole `app/api/out/[slug]/route.js` folder. `.gitignore` uses `/out` (root only) on purpose: a bare `out` would hide `app/api/out` from Git and every CTA would 404 on Vercel.
+
 ## Verification status
 
 Done without Next.js installed: `npm run check` (validation and 20 tests), and a render of the real components with stubbed `next/*`

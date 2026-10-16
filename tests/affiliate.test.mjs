@@ -188,3 +188,10 @@ test('next.config sets basePath, assetPrefix and merchant remotePatterns', () =>
   assert.match(cfg, /assetPrefix: SUBPATH/);
   assert.match(cfg, /hostname: 'www\.letbricks\.com'/);
 });
+
+test('.gitignore does not swallow the outbound route folder (app/api/out)', () => {
+  const lines = readFileSync('.gitignore', 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+  // An unanchored "out" or "out/" matches at any depth, including app/api/out, and the route is then missing on Vercel.
+  assert.ok(!lines.includes('out') && !lines.includes('out/'), 'use /out, not out');
+  assert.ok(readFileSync('app/api/out/[slug]/route.js', 'utf8').includes('export function GET'));
+});
