@@ -1,0 +1,30 @@
+{
+  "name": "letbricks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "validate:links": "node scripts/validate-links.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run validate:links && npm test"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "next": "14.2.35",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.35"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}

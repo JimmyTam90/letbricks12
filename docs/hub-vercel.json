@@ -1,0 +1,7 @@
+{
+  "_comment": "Add these two rewrites to the HUB project's vercel.json (primegearlab.com). Merge with existing rules; do not replace them. The Spoke uses basePath /letbricks, so the path is forwarded unchanged.",
+  "rewrites": [
+    { "source": "/letbricks", "destination": "https://letbricks12.vercel.app/letbricks" },
+    { "source": "/letbricks/:path*", "destination": "https://letbricks12.vercel.app/letbricks/:path*" }
+  ]
+}
