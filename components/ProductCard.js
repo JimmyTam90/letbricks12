@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import AffiliateLink, { BUTTON_PRIMARY } from './AffiliateLink.js';
+import AffiliateLink from './AffiliateLink.js';
+import { BUTTON_PRIMARY } from './buttonStyles.js';
 import { CATEGORIES, GROUPS } from '../lib/manifest.js';
 
 // DOM order is the mobile order: IMAGE → TITLE → SPECS → CTA. Plain flow layout, nothing is reordered or overlaid.

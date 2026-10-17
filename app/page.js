@@ -1,7 +1,8 @@
 import Hero from '../components/Hero.js';
 import CategoryCard from '../components/CategoryCard.js';
 import ProductCard from '../components/ProductCard.js';
-import AffiliateLink, { BUTTON_PRIMARY } from '../components/AffiliateLink.js';
+import AffiliateLink from '../components/AffiliateLink.js';
+import { BUTTON_PRIMARY } from '../components/buttonStyles.js';
 import { DEFAULT_SLUG } from '../lib/outbound.js';
 import { CATEGORIES, PRODUCTS, OFFERS, FAQ } from '../lib/manifest.js';
 import { pageMetadata } from '../lib/seo.js';

@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import AffiliateLink, { BUTTON_PRIMARY } from './AffiliateLink.js';
+import AffiliateLink from './AffiliateLink.js';
+import { BUTTON_PRIMARY } from './buttonStyles.js';
 
 // DOM order is the mobile order: IMAGE → TITLE → DESCRIPTION → CTA. No CSS reordering, no overlays.
 export default function CategoryCard({ category }) {

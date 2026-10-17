@@ -195,3 +195,49 @@ test('.gitignore does not swallow the outbound route folder (app/api/out)', () =
   assert.ok(!lines.includes('out') && !lines.includes('out/'), 'use /out, not out');
   assert.ok(readFileSync('app/api/out/[slug]/route.js', 'utf8').includes('export function GET'));
 });
+
+// ---- Speed: Edge runtime redirect + instant click feedback ----
+test('redirect route runs on the Edge runtime and stays dependency-light', () => {
+  const src = readFileSync('app/api/out/[slug]/route.js', 'utf8');
+  assert.match(src, /^[\s\S]*export const runtime = 'edge';/);
+  assert.ok(!/from 'node:|require\(|from 'fs'|from 'path'/.test(src), 'Node-only import in an Edge route');
+  for (const f of ['lib/affiliate.js', 'lib/outbound.js', 'lib/manifest.js', 'lib/config.js']) {
+    assert.ok(!/from 'node:|require\(|from 'fs'|from 'path'|Buffer\./.test(readFileSync(f, 'utf8')), `${f} is not Edge-safe`);
+  }
+});
+
+test('CTA click feedback is visual only: no preventDefault, no JS navigation, auto-reset', () => {
+  const src = readFileSync('components/AffiliateLink.js', 'utf8');
+  assert.match(src, /^'use client';/);
+  assert.match(src, /Redirecting…/);
+  assert.match(src, /aria-busy/);
+  assert.match(src, /setTimeout\(clear, RESET_MS\)/);
+  assert.match(src, /pageshow/);
+  assert.ok(!/preventDefault|window\.open|window\.location|router\./.test(src));
+  assert.match(src, /target="_blank"/);
+  assert.match(src, /rel="noopener noreferrer"/);
+});
+
+test('button class strings live outside the client component', () => {
+  assert.ok(!/export const BUTTON_/.test(readFileSync('components/AffiliateLink.js', 'utf8')));
+  assert.match(readFileSync('components/buttonStyles.js', 'utf8'), /export const BUTTON_PRIMARY/);
+  for (const f of [...walk('components'), ...walk('app')].filter((x) => /\.js$/.test(x))) {
+    assert.ok(!/BUTTON_\w+[^;\n]*from '[^']*AffiliateLink\.js'/.test(readFileSync(f, 'utf8')), `${f} imports styles from the client module`);
+  }
+});
+
+test('outbound route runs on the Edge runtime and its imports are Node-free', () => {
+  const route = readFileSync('app/api/out/[slug]/route.js', 'utf8');
+  assert.match(route, /export const runtime = 'edge';/);
+  for (const f of ['lib/affiliate.js', 'lib/manifest.js', 'lib/outbound.js', 'lib/config.js']) {
+    assert.ok(!/from 'node:|require\(|from 'fs'|from 'path'|Buffer\./.test(readFileSync(f, 'utf8')), `${f} uses a Node-only API`);
+  }
+});
+
+test('CTA shows instant redirecting feedback without blocking navigation', () => {
+  const src = readFileSync('components/AffiliateLink.js', 'utf8');
+  assert.match(src, /Redirecting/);
+  assert.match(src, /onClick=\{onClick\}/);
+  assert.ok(!/preventDefault/.test(src));
+  assert.match(src, /pageshow/);
+});

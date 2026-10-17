@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import AffiliateLink, { BUTTON_PRIMARY, BUTTON_SECONDARY } from './AffiliateLink.js';
+import AffiliateLink from './AffiliateLink.js';
+import { BUTTON_PRIMARY, BUTTON_SECONDARY } from './buttonStyles.js';
 import { DEFAULT_SLUG } from '../lib/outbound.js';
 import { FEATURED_PRODUCT } from '../lib/manifest.js';
 

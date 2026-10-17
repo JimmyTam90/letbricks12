@@ -1,4 +1,5 @@
-import AffiliateLink, { BUTTON_PRIMARY } from './AffiliateLink.js';
+import AffiliateLink from './AffiliateLink.js';
+import { BUTTON_PRIMARY } from './buttonStyles.js';
 import { DEFAULT_SLUG } from '../lib/outbound.js';
 
 // Mobile-only bar. The page adds bottom padding so it never hides the footer or card CTAs.

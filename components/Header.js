@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Logo from './Logo.js';
-import AffiliateLink, { BUTTON_PRIMARY } from './AffiliateLink.js';
+import AffiliateLink from './AffiliateLink.js';
+import { BUTTON_PRIMARY } from './buttonStyles.js';
 import { DEFAULT_SLUG } from '../lib/outbound.js';
 
 const NAV = [

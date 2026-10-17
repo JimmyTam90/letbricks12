@@ -1,3 +1,7 @@
+// Edge Runtime: runs on Vercel's Edge Network with no serverless cold start. Everything this handler
+// imports (slug lookup, tracking parameter, safety checks) is plain data and string/URL logic, no Node APIs.
+export const runtime = 'edge';
+
 import { NextResponse } from 'next/server';
 import { resolveBySlug } from '../../../../lib/affiliate.js';
 
